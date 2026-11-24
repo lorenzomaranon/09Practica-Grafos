@@ -104,8 +104,26 @@ class RedSocial:
         recursión. Hay un test con una cadena de 100 000 personas.
         Coste: O(n + m).
         """
-        # TODO: implementar
-        raise NotImplementedError("Ejercicio 2: etiquetas_de_grupo")
+        n = self.num_personas
+        grupo = [-1] * n
+        actual = 0
+        for s in range(n):
+            if grupo[s] != -1:
+                continue
+
+
+            grupo[s] = actual
+            pila = [s]
+
+            while pila:
+                u = pila.pop()
+                for v in self._ady[u]:
+                    if grupo[v] == -1:
+                        grupo[v] = actual
+                        pila.append(v)
+            actual += 1
+
+        return grupo
 
     def grupos(self):
         """Lista de grupos; cada grupo, la lista de sus nombres por número. O(n + m)."""
