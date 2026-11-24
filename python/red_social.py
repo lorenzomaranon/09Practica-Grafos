@@ -150,8 +150,19 @@ class RedSocial:
         un collections.deque (popleft es O(1); list.pop(0) es O(n)); y se marca
         al METER en la cola. Coste: O(n + m).
         """
-        # TODO: implementar
-        raise NotImplementedError("Ejercicio 3: _bfs")
+        n = len(self._nombres)
+        dist = [-1] * n
+        dist[origen] = 0
+        padre = [-1] * n
+        cola = deque([origen])
+        while cola:
+            u = cola.popleft()
+            for v in self._ady[u]:
+                if dist[v] == -1:
+                    dist[v] = dist[u] + 1
+                    padre[v] = u
+                    cola.append(v)
+        return dist, padre
 
     def separacion(self, a, b):
         """Grados de separación entre a y b: amistades del camino más corto, -1 si no hay."""
